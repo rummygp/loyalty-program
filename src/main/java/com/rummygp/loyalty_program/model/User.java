@@ -8,18 +8,16 @@ import java.util.UUID;
 @Data
 public class User {
     private UUID id;
-    private String name;
+    private String firstName;
     private String lastName;
     private String email;
     private LocalDateTime createdAt;
-    private LoyaltyProgram loyaltyProgram;
 
-    public User(String name, String lastName, String email, LoyaltyProgram loyaltyProgram) {
+    public User(String firstName, String lastName, String email) {
         this.id = UUID.randomUUID();
-        this.name = name;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.createdAt = LocalDateTime.now();
-        this.loyaltyProgram = loyaltyProgram;
     }
 }
