@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -41,7 +42,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @Operation(summary = "Get user by email")
+    @Operation(summary = "Get user by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "user returned.",
                     content = {@Content(mediaType = "application/json",
@@ -52,9 +53,9 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorMessageDto.class))})})
-    @GetMapping("/{email}")
-    public UserDto getUserByEmail(@PathVariable String email) {
-        return userMapper.toDto(userService.getUser(email));
+    @GetMapping("/{id}")
+    public UserDto getUserById(@PathVariable UUID id) {
+        return userMapper.toDto(userService.getUser(id));
     }
 
     @Operation(summary = "Add user")
@@ -62,9 +63,6 @@ public class UserController {
             @ApiResponse(responseCode = "201", description = "User has been created.",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserDto.class))}),
-            @ApiResponse(responseCode = "409", description = "Email already exists",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorMessageDto.class))}),
             @ApiResponse(responseCode = "500", description = "Fields should not be null",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorMessageDto.class))}),

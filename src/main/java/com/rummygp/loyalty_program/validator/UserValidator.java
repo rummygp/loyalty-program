@@ -1,6 +1,5 @@
 package com.rummygp.loyalty_program.validator;
 
-import com.rummygp.loyalty_program.exception.EmailAlreadyExistsException;
 import com.rummygp.loyalty_program.model.User;
 import com.rummygp.loyalty_program.repository.UserRepository;
 import lombok.AccessLevel;
@@ -19,11 +18,5 @@ public final class UserValidator {
             if(user.getEmail() == null) errorList.add("Email");
 
             if(!errorList.isEmpty()) throw new IllegalArgumentException("Following fields should not be null: " + errorList);
-
-
-
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new EmailAlreadyExistsException(user.getEmail());
-        }
     }
 }
